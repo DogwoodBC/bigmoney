@@ -20,14 +20,14 @@ class Filer(models.Model):
     affiliation = models.CharField(max_length=16, choices=AFFILIATIONS)
     type = models.CharField(max_length=20, choices=FILER_TYPES)
     electoral_district = models.ForeignKey('ElectoralDistrict', related_name='filers')
-    name = models.CharField(max_length='100')
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return '{} - {} - {}'.format(self.name, self.electoral_district, self.affiliation)
 
 
 class ElectoralDistrict(models.Model):
-    BOUNDARY_SETS = ('2008', '2008')
+    BOUNDARY_SETS = (('2008', '2008'),)
 
     name = models.CharField(max_length=100)
     boundary_set = models.CharField(max_length=4, choices=BOUNDARY_SETS)

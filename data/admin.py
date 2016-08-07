@@ -5,39 +5,39 @@ from .models import Donation, Filer, ElectoralDistrict, Contributor, Contributor
 
 @admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'contributor', 'filer', 'date', 'amount']
 
 
 @admin.register(Filer)
 class FilerAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name', 'affiliation', 'type', 'electoral_district']
 
 
 @admin.register(ElectoralDistrict)
 class ElectoralDistrictAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name', 'boundary_set']
 
 
 @admin.register(Contributor)
 class ContributorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'contributor_class', 'individual', 'organization']
 
 
 @admin.register(ContributorIndividual)
 class ContributorIndividualAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name', 'unique_individual']
 
 
 @admin.register(ContributorOrganization)
 class ContributorOrganizationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name']
 
 
 @admin.register(UniqueIndividual)
 class UniqueIndividualAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name']
 
 
 @admin.register(UniqueOrganization)
 class UniqueOrganizationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'name']

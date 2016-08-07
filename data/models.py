@@ -5,10 +5,10 @@ class Donation(models.Model):
     contributor = models.ForeignKey('Contributor', related_name='donations')
     filer = models.ForeignKey('Filer', related_name='donations')
     date = models.DateField('Date', help_text='The date on which the contribution was received')
-    amount = models.IntegerField('Amount')
+    amount = models.FloatField('Amount')
 
     def __str__(self):
-        return '{} - {} - {} - {}'.format(self.contributor, self.filer, self.data, self.amount)
+        return '{} - {} - {} - {}'.format(self.contributor, self.filer, self.date, self.amount)
 
 
 class Filer(models.Model):
@@ -17,10 +17,10 @@ class Filer(models.Model):
     FILER_TYPES = (('CANDIDATE', 'candidate'), ('CONSTITUENCY', 'constituency'), ('ASSOCIATION', 'association'),
                    ('POLITICAL PARTY', 'political party'))
 
-    affiliation = models.CharField(max_length=16, choices=AFFILIATIONS)
-    type = models.CharField(max_length=20, choices=FILER_TYPES)
-    electoral_district = models.ForeignKey('ElectoralDistrict', related_name='filers')
-    name = models.CharField(max_length=100)
+    affiliation = models.CharField(max_length=40, choices=AFFILIATIONS)
+    type = models.CharField(max_length=30, choices=FILER_TYPES)
+    electoral_district = models.ForeignKey('ElectoralDistrict', related_name='filers', blank=True, null=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return '{} - {} - {}'.format(self.name, self.electoral_district, self.affiliation)
@@ -46,9 +46,9 @@ class Contributor(models.Model):
 
     def __str__(self):
         if self.individual:
-            return self.individual
+            return self.individual.name
         else:
-            return self.organization
+            return self.organization.name
 
 
 class ContributorIndividual(models.Model):

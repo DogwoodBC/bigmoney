@@ -50,8 +50,7 @@ def main(args):
             prefix = '+'
         else:
             prefix = '.'
-        if created:
-            print('{} Filer #{} {} {} {}'.format(prefix, filer.id, filer.name, filer.affiliation, filer.electoral_district))
+        print('{} Filer #{} {} {} {}'.format(prefix, filer.id, filer.name, filer.affiliation, filer.electoral_district))
 
         if row['CLASS'] == '1':
             contributor_individual, created = ContributorIndividual.objects.get_or_create(name=row['CONTRIBUTOR_NAME'])

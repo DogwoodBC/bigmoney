@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.views.generic import TemplateView
 from rest_framework import routers
 from .views import DonationViewSet, ContributorViewSet, ContributorIndividualViewSet, ContributorOrganizationViewSet, \
     FilerViewSet, UniqueIndividualViewSet, UniqueOrganizationViewSet, ElectoralDistrictViewSet
@@ -17,5 +18,7 @@ router.register(prefix='unique_organizations', viewset=UniqueOrganizationViewSet
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    # todo Remove test page.
+    url(r'^test/$', TemplateView.as_view(template_name='data/test.html')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

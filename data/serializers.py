@@ -7,11 +7,13 @@ from .models import Donation, Contributor, ContributorIndividual, ContributorOrg
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
+        depth = 2  # Show the contributor org/individual, and the filer details.
 
 
 class ContributorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contributor
+        depth = 1  # Show the organization or individual.
 
 
 class ContributorOrganizationSerializer(serializers.ModelSerializer):
@@ -27,6 +29,7 @@ class ContributorIndividualSerializer(serializers.ModelSerializer):
 class FilerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filer
+        depth = 1  # Show the electoral district information.
 
 
 class ElectoralDistrictSerializer(serializers.ModelSerializer):

@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from rest_framework import filters
-from rest_framework import generics
 
 from .models import Donation, Contributor, ContributorOrganization, ContributorIndividual, Filer, UniqueOrganization, \
     UniqueIndividual, ElectoralDistrict
@@ -12,7 +10,6 @@ from .serializers import DonationSerializer, ContributorSerializer, ContributorI
 
 class FilerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = FilerSerializer
-    # filter_backends = (filters.DjangoFilterBackend,)  # Necessary since it's globally specified in the settings?'
     filter_fields = ('id', 'type', 'affiliation', 'name', 'electoral_district')
     # search_fields = ('id', 'type', 'affiliation', 'name', 'electoral_district')
 
@@ -29,14 +26,6 @@ class DonationViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = Donation.objects.all().order_by('id')
 
         return queryset
-
-# class DonationView(generics.ListAPIView):
-#     serializer_class = DonationSerializer
-#
-#     def get_queryset(self):
-#         queryset = Donation.objects.all().order_by('id')
-#
-#         return queryset
 
 
 class ContributorViewSet(viewsets.ReadOnlyModelViewSet):

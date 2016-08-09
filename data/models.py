@@ -5,7 +5,7 @@ class Donation(models.Model):
     contributor = models.ForeignKey('Contributor', related_name='donations')
     filer = models.ForeignKey('Filer', related_name='donations')
     date = models.DateField('Date', help_text='The date on which the contribution was received')
-    amount = models.FloatField('Amount')
+    amount = models.FloatField('Amount', help_text='Size of the donation in dollars')
 
     def __str__(self):
         return '{} - {} - {} - {}'.format(self.contributor, self.filer, self.date, self.amount)

@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters
+import django_filters
+from rest_framework import viewsets
+from rest_framework import filters
 
 from .models import Donation, Contributor, ContributorOrganization, ContributorIndividual, Filer, UniqueOrganization, \
     UniqueIndividual, ElectoralDistrict
@@ -16,12 +18,21 @@ class FilerViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ('id',)
 
 
+class DonationFilter(filters.FilterSet):
+    min = django_filters.NumberFilter(name='amount', lookup_expr='gte')
+    max = django_filters.NumberFilter(name='amount', lookup_expr='lte')
+
+    class Meta:
+        model = Donation
+        fields = ('min', 'max', 'contributor__contributor_class', 'filer__affiliation', 'filer__type')
+
+
 class DonationViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
-    filter_fields = ('amount', 'contributor__contributor_class', 'filer__affiliation', 'filer__type')
     search_fields = ('contributor__organization__name', 'contributor__individual__name', 'filer__name')
     ordering_fields = ('id', 'amount', 'date',)
+    filter_class = DonationFilter
 
 
 class ContributorViewSet(viewsets.ReadOnlyModelViewSet):

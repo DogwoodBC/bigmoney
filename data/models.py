@@ -20,7 +20,7 @@ class Filer(models.Model):
     affiliation = models.CharField(max_length=40, choices=AFFILIATIONS)
     type = models.CharField(max_length=30, choices=FILER_TYPES)
     electoral_district = models.ForeignKey('ElectoralDistrict', related_name='filers', blank=True, null=True)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, help_text='Name of the person who reported the donation.')
 
     def __str__(self):
         return '{} - {} - {}'.format(self.name, self.electoral_district, self.affiliation)
@@ -40,8 +40,10 @@ class Contributor(models.Model):
     CONTRIBUTOR_CLASSES = (('1', 'individuals'), ('2', 'corporations'), ('3', 'unincorporated business'),
                            ('4', 'trade union'), ('5', 'non-profit organizations'), ('6', 'other'))
 
-    individual = models.ForeignKey('ContributorIndividual', blank=True, null=True)
-    organization = models.ForeignKey('ContributorOrganization', blank=True, null=True)
+    individual = models.ForeignKey('ContributorIndividual', blank=True, null=True,
+                                   help_text='Individual who contributed this donation. Only for class 1 donations.')
+    organization = models.ForeignKey('ContributorOrganization', blank=True, null=True,
+                                     help_text='Organization that contributed this donation.')
     contributor_class = models.CharField(max_length=1, choices=CONTRIBUTOR_CLASSES)
 
     def __str__(self):

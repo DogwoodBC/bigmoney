@@ -12,16 +12,12 @@
     </style>
 {% endblock %}
 {% block content %}
-
-
-
-
     <div class="jumbotron">
         <div class="container">
             <h1>Big Money API</h1>
             <p>A back end for investigating the movement of money in B.C. politics.</p>
             <p>
-                <a href="http://127.0.0.1:8001/api/donations/?contributor__contributor_class=2&filer__type=CANDIDATE&ordering=-amount"
+                <a href="/api/donations/?contributor__contributor_class=2&filer__type=CANDIDATE&ordering=-amount"
                    class="btn btn-primary btn-lg" href="#" role="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Try a search</a></p>
         </div>
     </div>
@@ -82,7 +78,5 @@
                     href="http://geocology.ca">Geocology Research</a>.</p>
         </footer>
     </div>
-
-
 {% endblock %}
 {% block javascripts %}{% endblock %}

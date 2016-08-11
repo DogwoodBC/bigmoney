@@ -19,8 +19,7 @@ from django.contrib import admin
 admin.site.site_header = 'Big Money administration'
 
 urlpatterns = [
-    # url(r'^api/', include('data.urls', namespace='api')),
-    url(r'^', include('data.urls', namespace='api')),
+    url(r'^api/', include('data.urls', namespace='api')),
     # url(r'^', admin.site.urls),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

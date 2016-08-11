@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.db.models import Sum, Count
+
 import django_filters
 from rest_framework import viewsets
 from rest_framework import filters
@@ -21,10 +23,13 @@ class FilerViewSet(viewsets.ReadOnlyModelViewSet):
 class DonationFilter(filters.FilterSet):
     min = django_filters.NumberFilter(name='amount', lookup_expr='gte')
     max = django_filters.NumberFilter(name='amount', lookup_expr='lte')
+    after = django_filters.DateFilter(name='date', lookup_expr='gte')
+    before = django_filters.DateFilter(name='date', lookup_expr='lte')
 
     class Meta:
         model = Donation
-        fields = ('min', 'max', 'contributor__contributor_class', 'filer__affiliation', 'filer__type')
+        fields = ('min', 'max', 'after', 'before', 'contributor__id', 'contributor__contributor_class',
+                  'filer__affiliation', 'filer__type',)
 
 
 class DonationViewSet(viewsets.ReadOnlyModelViewSet):
@@ -36,11 +41,14 @@ class DonationViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class ContributorViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Contributor.objects.all()
+    # This works because Donations.contributor has related_name='donations':
+    queryset = Contributor.objects\
+        .annotate(contributions_count=Count('donations'))\
+        .annotate(contributions_total=Sum('donations__amount'))
     serializer_class = ContributorSerializer
     filter_fields = ('contributor_class',)
     search_fields = ('individual__name', 'organization__name')
-    ordering_fields = ('id', 'individual__name', 'organization__name')
+    ordering_fields = ('id', 'individual__name', 'organization__name', 'contributions_count', 'contributions_total')
 
 
 class ContributorOrganizationViewSet(viewsets.ReadOnlyModelViewSet):

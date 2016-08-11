@@ -6,6 +6,9 @@
             padding-top: 60px;
             padding-bottom: 20px;
         }
+        table {
+            margin: 40px 0;
+        }
     </style>
 {% endblock %}
 {% block content %}
@@ -24,41 +27,41 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2>Some things to try</h2>
+            <h2>This is meant to be read by robots, but humans are welcome too. <small>Here are some things to try:</small></h2>
             <table class="table table-responsive">
                 <tbody>
                 <tr>
-                    <td>See a human-readable version of the data:</td>
+                    <td>See a human-readable version of the data</td>
                     <td><a href="/api">/api</a></td>
                 </tr>
                 <tr>
-                    <td>See a list of all donations:</td>
+                    <td>List of all donations</td>
                     <td><a href="/api/donations">/api/donations</a></td>
                 </tr>
                 <tr>
-                    <td>Add <em>?format=json</em> to any URL to see the machine-readable version of the data:</td>
+                    <td>Add <em>?format=json</em> to any URL to see the machine-readable version of the data</td>
                     <td><a href="/api/donations/?format=json">/api/donations/?format=json</a></td>
                 </tr>
                 <tr>
-                    <td>See the details of a single donation:</td>
+                    <td>Show the details of a single donation</td>
                     <td><a href="/api/donations/4215/">/api/donations/4215</a></td>
                 </tr>
                 <tr>
-                    <td>See all donations larger than $25,000:</td>
+                    <td>Lsit all donations larger than $25,000</td>
                     <td><a href="/api/donations/?min=25000">/api/donations/?min=25000</a></td>
                 </tr>
                 <tr>
-                    <td>See the top donors:</td>
+                    <td>List the top donors</td>
                     <td><a href="/api/contributors/?ordering=-contributions_total">/api/contributors/?ordering=-contributions_total</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>See all the donations to one party and its candidates between two dates:</td>
+                    <td>List all the donations to one party and its candidates between two dates</td>
                     <td><a href="/api/donations/?after=2013-02-13&before=2013-02-14&filer__affiliation=BC+NDP">/api/donations/?after=2013-02-13&before=2013-02-14&filer__affiliation=BC+NDP</a>
                     </td>
                 </tr>
                 <tr>
-                    <td>See all the donations from one company:</td>
+                    <td>List all the donations from one company</td>
                     <td><a href="/api/donations/?contributor__contributor_class=2&search=Classic+Impressions">/api/donations/?contributor__contributor_class=2&search=Classic+Impressions</a>
                     </td>
                 </tr>
@@ -75,7 +78,7 @@
         <hr>
 
         <footer>
-            <p>Brought to you by <a href="http://dogwoodinitiative.org">the Dogwood Initiative</a>. Coded up by <a
+            <p>Brought to you by <a href="http://dogwoodinitiative.org">Dogwood Initiative</a>'s <a href="http://banbigmoney.dogwoodbc.ca/">#BanBigMoney</a> campaign. Coded up by <a
                     href="http://geocology.ca">Geocology Research</a>.</p>
         </footer>
     </div>

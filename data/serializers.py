@@ -10,15 +10,6 @@ class DonationSerializer(serializers.ModelSerializer):
         depth = 2  # Show the contributor org/individual, and the filer details.
 
 
-class ContributorSerializer(serializers.ModelSerializer):
-    contributions_total = serializers.FloatField(read_only=True)
-    contributions_count = serializers.IntegerField(read_only=True)
-
-    class Meta:
-        model = Contributor
-        depth = 1  # Show the organization or individual.
-
-
 class ContributorOrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContributorOrganization
@@ -27,6 +18,18 @@ class ContributorOrganizationSerializer(serializers.ModelSerializer):
 class ContributorIndividualSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContributorIndividual
+        exclude = ['name']  # Leave name out since first/middle and last name are included.
+
+
+class ContributorSerializer(serializers.ModelSerializer):
+    contributions_total = serializers.FloatField(read_only=True)
+    contributions_count = serializers.IntegerField(read_only=True)
+    individual = ContributorIndividualSerializer()
+    organization = ContributorOrganizationSerializer()
+
+    class Meta:
+        model = Contributor
+        # No need to specify depth because the individual and organization serializers are called explicitly.
 
 
 class FilerSerializer(serializers.ModelSerializer):

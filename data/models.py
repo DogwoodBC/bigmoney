@@ -55,10 +55,19 @@ class Contributor(models.Model):
 
 class ContributorIndividual(models.Model):
     name = models.CharField(max_length=100)
+    name_first_middle = models.CharField(max_length=100, help_text='First and any middle parts of the name provided.')
+    name_last = models.CharField(max_length=100, help_text='Last part of the name provided.')
     unique_individual = models.ForeignKey('UniqueIndividual', blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    # Whenever a new entry being saved to the database, first split the name up into first/middle and last components.
+    def save(self, *args, **kwargs):
+        parts = self.name.split()
+        self.name_last = parts[-1]
+        self.name_first_middle = ' '.join(parts[:-1])
+        super(ContributorIndividual, self).save(*args, **kwargs)
 
 
 class ContributorOrganization(models.Model):

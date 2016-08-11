@@ -46,9 +46,10 @@ class ContributorViewSet(viewsets.ReadOnlyModelViewSet):
         .annotate(contributions_count=Count('donations'))\
         .annotate(contributions_total=Sum('donations__amount'))
     serializer_class = ContributorSerializer
-    filter_fields = ('contributor_class',)
-    search_fields = ('individual__name', 'organization__name')
-    ordering_fields = ('id', 'individual__name', 'organization__name', 'contributions_count', 'contributions_total')
+    filter_fields = ('contributor_class', 'organization__name', 'individual__name_first_middle', 'individual__name_last')
+    search_fields = ('individual__name_first_middle', 'individual__name_last', 'organization__name')
+    ordering_fields = ('id', 'individual__name_first_middle', 'individual__name_last', 'organization__name',
+                       'contributions_count', 'contributions_total')
 
 
 class ContributorOrganizationViewSet(viewsets.ReadOnlyModelViewSet):

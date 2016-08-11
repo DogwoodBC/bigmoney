@@ -12,7 +12,7 @@ class Donation(models.Model):
 
 
 class Filer(models.Model):
-    AFFILIATIONS = (('BC LIBERAL PARTY', 'Liberal'), ('BC NDP', 'NDP'))
+    AFFILIATIONS = (('BC LIBERAL PARTY', 'Liberal'), ('BC NDP', 'NDP'), ('BC CONSERVATIVE PARTY', 'Conservative'))
 
     FILER_TYPES = (('CANDIDATE', 'candidate'), ('CONSTITUENCY', 'constituency'), ('ASSOCIATION', 'association'),
                    ('POLITICAL PARTY', 'political party'))

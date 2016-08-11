@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static "" %}lib/bootswatch/bootstrap.min.css" rel='stylesheet' type='text/css' id="bootstrap">
+    {% block stylesheets %}{% endblock %}
+
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top">
+{#    <nav class="navbar navbar-inverse navbar-fixed-top">#}
+        <div class="container container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Big Money API</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/admin">Log in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% block content %}{% endblock %}
+</body>
+<script type='text/javascript' src='{% static 'lib/jquery-1.12.3.min.js' %}'></script>
+{% block javascripts %}
+{% endblock %}
+</html>

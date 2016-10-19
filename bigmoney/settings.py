@@ -6,7 +6,8 @@ server = node()
 
 if 'badger' in server:
     from bigmoney.settings_badger import *
-elif 'ip-172-31-15-13' in server:
+# This may be unnecessary since it's also specified in .ebextensions/02_python.config:
+elif 'ip-172-31-9-116' in server:
     from bigmoney.settings_staging import *
 elif 'ip-172-31-21-189' in server:
     from bigmoney.settings_endpoint import *

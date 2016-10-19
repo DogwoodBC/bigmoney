@@ -1,0 +1,13 @@
+branch-defaults:
+  master:
+    environment: bigmoney-staging
+    group_suffix: null
+global:
+  application_name: bigmoney
+  branch: null
+  default_ec2_keyname: aws-eb
+  default_platform: python3.4
+  default_region: us-west-2
+  profile: eb-cli
+  repository: null
+  sc: git

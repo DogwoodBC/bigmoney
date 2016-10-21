@@ -2,6 +2,8 @@ from platform import node
 
 from bigmoney.settings_base import *
 
+print('Loading settings.')
+
 try:
     server = node()
 

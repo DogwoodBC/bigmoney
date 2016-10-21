@@ -2,14 +2,16 @@ from platform import node
 
 from bigmoney.settings_base import *
 
-server = node()
+try:
+    server = node()
 
-if 'badger' in server:
-    from bigmoney.settings_badger import *
-# This may be unnecessary since it's also specified in .ebextensions/02_python.config:
-elif 'ip-172-31-9-116' in server:
-    from bigmoney.settings_staging import *
-elif 'ip-172-31-21-189' in server:
-    from bigmoney.settings_endpoint import *
-else:
+    if 'badger' in server:
+        from bigmoney.settings_badger import *
+    elif 'ip-172-31-21-189' in server:
+        from bigmoney.settings_endpoint import *
+    # Otherwise assume (for now) that this is the staging Elastic Beanstalk environment.
+    else:
+        from bigmoney.settings_template import *
+
+except:
     raise Exception("Problem in settings.py.")

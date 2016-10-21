@@ -48,11 +48,15 @@ Temporary Items
 
 /.idea
 *.pyc
-/static
 
 /bigmoney/settings_badger.py
-/bigmoney/settings_endpoint.py
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+/bigmoney/settings_endpoint.py
+
+# Elastic Beanstalk Files
+
+.elasticbeanstalk/*
+
+!.elasticbeanstalk/*.cfg.yml
+
+!.elasticbeanstalk/*.global.yml
+

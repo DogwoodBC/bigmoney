@@ -48,7 +48,7 @@ Temporary Items
 
 /.idea
 *.pyc
-
+/static/
 /bigmoney/settings_badger.py
 /bigmoney/settings_endpoint.py
 

@@ -72,7 +72,7 @@ class ContributorIndividual(models.Model):
 
 class ContributorOrganization(models.Model):
     name = models.CharField(max_length=100)
-    unique_organizations = models.ForeignKey('UniqueOrganization', blank=True, null=True)
+    unique_organization = models.ForeignKey('UniqueOrganization', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -80,6 +80,8 @@ class ContributorOrganization(models.Model):
 
 class UniqueIndividual(models.Model):
     name = models.CharField(max_length=100)
+    name_first_middle = models.CharField(max_length=100, help_text='First and any middle parts of the name provided.')
+    name_last = models.CharField(max_length=100, help_text='Last part of the name provided.')
 
     def __str__(self):
         return self.name

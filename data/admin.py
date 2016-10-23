@@ -6,21 +6,27 @@ from .models import Donation, Filer, ElectoralDistrict, Contributor, Contributor
 @admin.register(Donation)
 class DonationAdmin(admin.ModelAdmin):
     list_display = ['id', 'contributor', 'filer', 'date', 'amount']
+    search_fields = ['id', 'contributor__organization__name', 'contributor__individual__name', 'filer__name', 'date', 'amount']
+    list_filter = ['filer__affiliation', 'filer__electoral_district__name']
 
 
 @admin.register(Filer)
 class FilerAdmin(admin.ModelAdmin):
+    search_fields = ['id', 'name']
     list_display = ['id', 'name', 'affiliation', 'type', 'electoral_district']
+    list_filter = ['type', 'affiliation', 'electoral_district']
 
 
 @admin.register(ElectoralDistrict)
 class ElectoralDistrictAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'boundary_set']
+    search_fields = ['name']
 
 
 @admin.register(Contributor)
 class ContributorAdmin(admin.ModelAdmin):
     list_display = ['id', 'contributor_class', 'individual', 'organization']
+    search_fields = ['individual__name', 'individual__name_first_middle', 'individual__name_last', 'organization__name']
     list_filter = ['contributor_class']
     actions = ['accept_as_unique']
 
@@ -64,6 +70,8 @@ class ContributorAdmin(admin.ModelAdmin):
 @admin.register(ContributorIndividual)
 class ContributorIndividualAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'name_first_middle', 'name_last', 'unique_individual']
+    search_fields = ['id', 'name', 'name_first_middle', 'name_last', 'unique_individual__name',
+                     'unique_individual__name_first_middle', 'unique_individual__name_last']
 
 
 class ContributorIndividualInline(admin.TabularInline):
@@ -73,11 +81,13 @@ class ContributorIndividualInline(admin.TabularInline):
 @admin.register(ContributorOrganization)
 class ContributorOrganizationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'unique_organization']
+    search_fields = ['id', 'name', 'unique_organization__name']
 
 
 @admin.register(UniqueIndividual)
 class UniqueIndividualAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'name_first_middle', 'name_last']
+    search_fields = ['id', 'name', 'name_first_middle', 'name_last']
     actions = ['delete_if_orphan']
 
     def delete_if_orphan(self, request, queryset):
@@ -104,6 +114,7 @@ class UniqueIndividualAdmin(admin.ModelAdmin):
 @admin.register(UniqueOrganization)
 class UniqueOrganizationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
+    search_fields = ['id', 'name']
     actions = ['delete_if_orphan']
 
     def delete_if_orphan(self, request, queryset):

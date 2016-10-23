@@ -48,9 +48,14 @@
                 </tr>
                 <tr>
                     <td>List the top (non-individual) donors</td>
-                    <td><a href="/api/unique_organizations/?ordering=-donations_total">/api/contributors/?ordering=-contributions_total</a>
+                    <td><a href="/api/unique_organizations/?ordering=-donations_total">/api/unique_organizations/?ordering=-donations_total</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>Get all of the above results in a single (slower) page of JSON data</td>
+                    <td><a href="api/unique_organizations/?ordering=-donations_total&format=json&limit=99999">api/unique_organizations/?ordering=-donations_total&format=json&limit=99999</a></td>
+                </tr>
+                http://127.0.0.1:8001/api/unique_organizations/?format=json&ordering=-donations_total&limit=99999
                 <tr>
                     <td>List all the donations to one party and its candidates between two dates</td>
                     <td><a href="/api/donations/?after=2013-02-13&before=2013-02-14&filer__affiliation=BC+NDP">/api/donations/?after=2013-02-13&before=2013-02-14&filer__affiliation=BC+NDP</a>

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.db.models import Sum, Count
 
 import django_filters

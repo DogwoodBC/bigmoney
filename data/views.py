@@ -63,25 +63,33 @@ class ContributorOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
 class ContributorIndividualViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ContributorIndividual.objects.all()
     serializer_class = ContributorIndividualSerializer
-    search_fields = ('name',)
+    search_fields = ('name', 'name_first_middle', 'name_last')
     filter_fields = ()
     ordering_fields = ('id', 'name')
 
 
 class UniqueIndividualViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UniqueIndividualSerializer
+    search_fields = ('name', 'name_first_middle', 'name_last')
 
     def get_queryset(self):
-        queryset = UniqueIndividual.objects.all().order_by('id')
-
+        queryset = UniqueIndividual.objects\
+            .annotate(donations_count=Count('contributorindividual__contributor__donations')) \
+            .annotate(donations_total=Sum('contributorindividual__contributor__donations__amount')) \
+            .order_by('id')
+        print(queryset.query)
         return queryset
 
 
 class UniqueOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UniqueOrganizationSerializer
+    search_fields = ('name')
 
     def get_queryset(self):
-        queryset = UniqueOrganization.objects.all().order_by('id')
+        queryset = UniqueOrganization.objects\
+            .annotate(donations_count=Count('contributororganization__contributor__donations')) \
+            .annotate(donations_total=Sum('contributororganization__contributor__donations__amount')) \
+            .order_by('id')
 
         return queryset
 

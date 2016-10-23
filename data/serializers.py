@@ -44,10 +44,16 @@ class ElectoralDistrictSerializer(serializers.ModelSerializer):
 
 
 class UniqueIndividualSerializer(serializers.ModelSerializer):
+    donations_total = serializers.FloatField(read_only=True)
+    donations_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = UniqueIndividual
 
 
 class UniqueOrganizationSerializer(serializers.ModelSerializer):
+    donations_total = serializers.FloatField(read_only=True)
+    donations_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = UniqueOrganization

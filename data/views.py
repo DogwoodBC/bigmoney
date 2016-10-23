@@ -14,9 +14,9 @@ from .serializers import DonationSerializer, ContributorSerializer, ContributorI
 class FilerViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Filer.objects.all()
     serializer_class = FilerSerializer
-    filter_fields = ('type', 'affiliation', 'electoral_district')
-    search_fields = ('name',)
-    ordering_fields = ('id',)
+    filter_fields = ['type', 'affiliation', 'electoral_district']
+    search_fields = ['name']
+    ordering_fields = ['id']
 
 
 class DonationFilter(filters.FilterSet):
@@ -27,15 +27,15 @@ class DonationFilter(filters.FilterSet):
 
     class Meta:
         model = Donation
-        fields = ('min', 'max', 'after', 'before', 'contributor__id', 'contributor__contributor_class',
-                  'filer__affiliation', 'filer__type',)
+        fields = ['min', 'max', 'after', 'before', 'contributor__id', 'contributor__contributor_class',
+                  'filer__affiliation', 'filer__type']
 
 
 class DonationViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = DonationSerializer
-    search_fields = ('contributor__organization__name', 'contributor__individual__name', 'filer__name')
-    ordering_fields = ('id', 'amount', 'date',)
+    search_fields = ['contributor__organization__name', 'contributor__individual__name', 'filer__name']
+    ordering_fields = ['id', 'amount', 'date',]
     filter_class = DonationFilter
 
 
@@ -45,31 +45,31 @@ class ContributorViewSet(viewsets.ReadOnlyModelViewSet):
         .annotate(contributions_count=Count('donations'))\
         .annotate(contributions_total=Sum('donations__amount'))
     serializer_class = ContributorSerializer
-    filter_fields = ('contributor_class', 'organization__name', 'individual__name_first_middle', 'individual__name_last')
-    search_fields = ('individual__name_first_middle', 'individual__name_last', 'organization__name')
-    ordering_fields = ('id', 'individual__name_first_middle', 'individual__name_last', 'organization__name',
-                       'contributions_count', 'contributions_total')
+    filter_fields = ['contributor_class', 'organization__name', 'individual__name_first_middle', 'individual__name_last']
+    search_fields = ['individual__name_first_middle', 'individual__name_last', 'organization__name']
+    ordering_fields = ['id', 'individual__name_first_middle', 'individual__name_last', 'organization__name',
+                       'contributions_count', 'contributions_total']
 
 
 class ContributorOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ContributorOrganization.objects.all()
     serializer_class = ContributorOrganizationSerializer
-    search_fields = ('name',)
-    filter_fields = ()
-    ordering_fields = ('id', 'name')
+    search_fields = ['name']
+    filter_fields = []
+    ordering_fields = ['id', 'name']
 
 
 class ContributorIndividualViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ContributorIndividual.objects.all()
     serializer_class = ContributorIndividualSerializer
-    search_fields = ('name', 'name_first_middle', 'name_last')
-    filter_fields = ()
-    ordering_fields = ('id', 'name')
+    search_fields = ['name', 'name_first_middle', 'name_last']
+    filter_fields = []
+    ordering_fields = ['id', 'name']
 
 
 class UniqueIndividualViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UniqueIndividualSerializer
-    search_fields = ('name', 'name_first_middle', 'name_last')
+    search_fields = ['name', 'name_first_middle', 'name_last']
 
     def get_queryset(self):
         queryset = UniqueIndividual.objects\
@@ -82,7 +82,7 @@ class UniqueIndividualViewSet(viewsets.ReadOnlyModelViewSet):
 
 class UniqueOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UniqueOrganizationSerializer
-    search_fields = ('name')
+    search_fields = ['name']
 
     def get_queryset(self):
         queryset = UniqueOrganization.objects\
@@ -96,6 +96,6 @@ class UniqueOrganizationViewSet(viewsets.ReadOnlyModelViewSet):
 class ElectoralDistrictViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ElectoralDistrict.objects.all()
     serializer_class = ElectoralDistrictSerializer
-    search_fields = ('name',)
-    filter_fields = ('boundary_set',)
-    ordering_fields = ('id', 'name')
+    search_fields = ['name']
+    filter_fields = ['boundary_set']
+    ordering_fields = ['id', 'name']

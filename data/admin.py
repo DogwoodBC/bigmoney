@@ -87,6 +87,7 @@ class ContributorOrganizationAdmin(admin.ModelAdmin):
 @admin.register(UniqueIndividual)
 class UniqueIndividualAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'name_first_middle', 'name_last']
+    list_editable = ['name', 'name_first_middle', 'name_last']  # Just to demonstrate that this can be done.
     search_fields = ['id', 'name', 'name_first_middle', 'name_last']
     actions = ['delete_if_orphan']
 
@@ -114,6 +115,7 @@ class UniqueIndividualAdmin(admin.ModelAdmin):
 @admin.register(UniqueOrganization)
 class UniqueOrganizationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
+    list_editable = ['name']
     search_fields = ['id', 'name']
     actions = ['delete_if_orphan']
 

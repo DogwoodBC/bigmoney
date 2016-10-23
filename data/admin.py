@@ -78,8 +78,50 @@ class ContributorOrganizationAdmin(admin.ModelAdmin):
 @admin.register(UniqueIndividual)
 class UniqueIndividualAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'name_first_middle', 'name_last']
+    actions = ['delete_if_orphan']
+
+    def delete_if_orphan(self, request, queryset):
+        # If this unique individual isn't linked to any contributors any more, delete it.
+        # This is done so there aren't ghost entries with donation totals of "0".
+        deleted = 0
+        preserved = 0
+
+        for obj in queryset:
+            contributors = ContributorIndividual.objects.filter(unique_individual=obj)
+            if len(contributors) == 0:
+                obj.delete()
+                deleted += 1
+            else:
+                preserved += 1
+
+        if request:
+            message = 'Deleted {} orphaned unique individual(s), preserved {} with connections.'.format(
+                deleted, preserved)
+            self.message_user(request, message)
+    delete_if_orphan.short_description = 'Delete if orphaned'
 
 
 @admin.register(UniqueOrganization)
 class UniqueOrganizationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
+    actions = ['delete_if_orphan']
+
+    def delete_if_orphan(self, request, queryset):
+        # If this unique individual isn't linked to any contributors any more, delete it.
+        # This is done so there aren't ghost entries with donation totals of "0".
+        deleted = 0
+        preserved = 0
+
+        for obj in queryset:
+            contributors = ContributorOrganization.objects.filter(unique_organization=obj)
+            if len(contributors) == 0:
+                obj.delete()
+                deleted += 1
+            else:
+                preserved += 1
+
+        if request:
+            message = 'Deleted {} orphaned unique organization(s), preserved {} with connections.'.format(
+                deleted, preserved)
+            self.message_user(request, message)
+    delete_if_orphan.short_description = 'Delete if orphaned'

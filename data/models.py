@@ -1,5 +1,8 @@
 from django.db import models
 
+CONTRIBUTOR_CLASSES = (('1', 'individuals'), ('2', 'corporations'), ('3', 'unincorporated business'),
+                       ('4', 'trade union'), ('5', 'non-profit organizations'), ('6', 'other'))
+
 
 class Donation(models.Model):
     contributor = models.ForeignKey('Contributor', related_name='donations')
@@ -37,9 +40,6 @@ class ElectoralDistrict(models.Model):
 
 
 class Contributor(models.Model):
-    CONTRIBUTOR_CLASSES = (('1', 'individuals'), ('2', 'corporations'), ('3', 'unincorporated business'),
-                           ('4', 'trade union'), ('5', 'non-profit organizations'), ('6', 'other'))
-
     individual = models.ForeignKey('ContributorIndividual', blank=True, null=True,
                                    help_text='Individual who contributed this donation. Only for class 1 donations.')
     organization = models.ForeignKey('ContributorOrganization', blank=True, null=True,
@@ -63,11 +63,13 @@ class ContributorIndividual(models.Model):
         return self.name
 
     # Whenever a new entry being saved to the database, first split the name up into first/middle and last components.
-    def save(self, *args, **kwargs):
-        parts = self.name.split()
-        self.name_last = parts[-1]
-        self.name_first_middle = ' '.join(parts[:-1])
-        super(ContributorIndividual, self).save(*args, **kwargs)
+    def save(self, split=True, *args, **kwargs):
+        if split:
+            parts = self.name.split()
+            self.name_last = parts[-1]
+            self.name_first_middle = ' '.join(parts[:-1])
+            super(ContributorIndividual, self).save(*args, **kwargs)
+        print('Saved contributor individual ' + str(self))
 
 
 class ContributorOrganization(models.Model):

@@ -9,9 +9,11 @@ import argparse
 import codecs
 import csv
 from datetime import datetime
+import sys
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bigmoney.settings')
-# sys.path.append('/data/web/placespeak.com/webapps/place')
+project_path = os.path.normpath(os.getcwd() + '/../../')
+sys.path.append(project_path) #for django_setup to find settings.py
 django.setup()
 
 from data.models import ElectoralDistrict, Filer, ContributorIndividual, ContributorOrganization, Contributor, Donation

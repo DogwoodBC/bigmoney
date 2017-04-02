@@ -24,11 +24,12 @@ class DonationFilter(filters.FilterSet):
     max = django_filters.NumberFilter(name='amount', lookup_expr='lte')
     after = django_filters.DateFilter(name='date', lookup_expr='gte')
     before = django_filters.DateFilter(name='date', lookup_expr='lte')
+    name_regex = django_filters.CharFilter(name='filer__name', lookup_expr='iregex')
 
     class Meta:
         model = Donation
         fields = ['min', 'max', 'after', 'before', 'contributor__id', 'contributor__contributor_class',
-                  'filer__affiliation', 'filer__type']
+                  'filer__affiliation', 'filer__type', 'filer__name', 'name_regex']
 
 
 class DonationViewSet(viewsets.ReadOnlyModelViewSet):

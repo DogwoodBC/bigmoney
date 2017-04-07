@@ -11,10 +11,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+DEBUG = True if os.environ.get('DEBUG') == 'True' else False
 
 # Application definition
 
@@ -45,10 +42,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8080',
-    '127.0.0.1:8080'
-)
+CORS_ORIGIN_WHITELIST = ( os.environ.get('CORS_ORIGIN_WHITELIST') )
 
 
 ROOT_URLCONF = 'bigmoney.urls'
@@ -131,7 +125,7 @@ REST_FRAMEWORK = {
 }
 
 
-ALLOWED_HOSTS = ['*']  # todo Specify this once the domains are known.
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS', '')]
 
 DATABASES = {
     'default': {

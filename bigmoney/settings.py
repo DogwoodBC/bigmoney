@@ -145,38 +145,3 @@ EMAIL_HOST_USER = 'hughstimson@gmail.com'
 EMAIL_HOST_PASSWORD = '****'
 DEFAULT_FROM_EMAIL = 'hugh@geocology.ca'  # Is this used for anything? Should it be changed?
 DEFAULT_TO_EMAIL = 'hugh@geocology.ca'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'applogfile': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join('bigmoney.log'),
-            'maxBytes': 1024*1024*15,  # 15MB
-            'backupCount': 10,
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-        'drifter': {
-            'handlers': ['applogfile', ],
-            'level': 'DEBUG',
-        },
-    }
-}

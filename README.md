@@ -2,6 +2,8 @@
 
 If you would like to become involved, please contact an existing collaborator.
 
+[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 ### Setup instructions
 Setup up your virtual environment.  You may use virtualenv (or any equivablent, like conda).  Use python 3.4+
 

@@ -43,8 +43,8 @@ class DonationViewSet(viewsets.ReadOnlyModelViewSet):
 class ContributorViewSet(viewsets.ReadOnlyModelViewSet):
     # This works because Donations.contributor has related_name='donations':
     queryset = Contributor.objects\
-        .annotate(contributions_count=Count('donations'))\
-        .annotate(contributions_total=Sum('donations__amount'))
+        .annotate(donations_count=Count('donations'))\
+        .annotate(donations_total=Sum('donations__amount'))
     serializer_class = ContributorSerializer
     filter_fields = ['contributor_class', 'organization__name', 'individual__name_first_middle', 'individual__name_last']
     search_fields = ['individual__name_first_middle', 'individual__name_last', 'organization__name']

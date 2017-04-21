@@ -22,8 +22,8 @@ class ContributorIndividualSerializer(serializers.ModelSerializer):
 
 
 class ContributorSerializer(serializers.ModelSerializer):
-    contributions_total = serializers.FloatField(read_only=True)
-    contributions_count = serializers.IntegerField(read_only=True)
+    donations_total = serializers.FloatField(read_only=True)
+    donations_count = serializers.IntegerField(read_only=True)
     individual = ContributorIndividualSerializer()
     organization = ContributorOrganizationSerializer()
 

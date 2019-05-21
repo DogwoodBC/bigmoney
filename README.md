@@ -1,4 +1,4 @@
-# Dogwood Big Money APP_DIRS
+# Dogwood Big Money
 
 If you would like to become involved, please contact an existing collaborator.
 
